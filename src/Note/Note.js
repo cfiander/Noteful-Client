@@ -32,7 +32,7 @@ export default class Note extends React.Component {
       .then(() => {
         this.context.deleteNote(noteId)
         // allow parent to perform extra behaviour
-        this.props.onDeleteNote(noteId)
+        // this.props.onDeleteNote(noteId)
       })
       .catch(error => {
         console.error({ error })
@@ -64,6 +64,11 @@ export default class Note extends React.Component {
             <span className='Date'>
               {format(modified, 'Do MMM YYYY')}
             </span>
+          </div>
+          <div className="edit">
+          <Link to={`/edit/${id}`}>
+              Edit
+          </Link>
           </div>
         </div>
       </div>

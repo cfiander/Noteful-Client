@@ -34,15 +34,6 @@ export default class NoteListNav extends React.Component {
             <br />
             Folder
           </CircleButton>
-          <button
-                className='Note__delete'
-                type='button'
-                onClick={this.handleClickDelete}
-              >
-                <FontAwesomeIcon icon='trash-alt' />
-                {' '}
-                remove
-          </button>
         </div>
       </div>
     )

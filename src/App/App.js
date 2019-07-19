@@ -8,6 +8,7 @@ import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import HandleError from '../HandleError/HandleError';
+import EditNote from '../EditNote/EditNote'
 
 import './App.css';
 
@@ -48,6 +49,7 @@ class App extends Component {
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageMain} />
+                <Route path="/edit/:noteId" component={EditNote}/>
             </>
         );
     }

@@ -8,6 +8,7 @@ const ApiContext = React.createContext({
   addNote: () => {},
   deleteNote: () => {},
   deleteFolder: () => {},
+  updateNote: () => {},
 })
 
 export default ApiContext;
@@ -66,6 +67,14 @@ export class ApiProvider extends Component {
         })
     }
 
+    updateNote = updatedNote => {
+        this.setState({
+          notes: this.state.notes.map(note =>
+            (note.id !== updatedNote.id) ? note : updatedNote
+          )
+        })
+      }
+
     render() {
         const value = {
             notes: this.state.notes,
@@ -73,7 +82,8 @@ export class ApiProvider extends Component {
             deleteNote: this.handleDeleteNote,
             addFolder: this.handleAddFolder,
             addNote: this.handleAddNote,
-            deleteFolder: this.handleDeleteFolder
+            deleteFolder: this.handleDeleteFolder,
+            updateNote: this.updateNote,
         };
         return (
                 <ApiContext.Provider value={value}>
