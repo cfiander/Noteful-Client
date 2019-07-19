@@ -5,9 +5,12 @@ import CircleButton from '../CircleButton/CircleButton'
 import ApiContext from '../ApiContext'
 import { countNotesForFolder } from '../notes-helpers'
 import './NoteListNav.css'
+import Folder from '../Folder/Folder'
+
 
 export default class NoteListNav extends React.Component {
   static contextType = ApiContext;
+
 
   render() {
     const { folders=[], notes=[] } = this.context
@@ -16,15 +19,7 @@ export default class NoteListNav extends React.Component {
         <ul className='NoteListNav__list'>
           {folders.map(folder =>
             <li key={folder.id}>
-              <NavLink
-                className='NoteListNav__folder-link'
-                to={`/folder/${folder.id}`}
-              >
-                <span className='NoteListNav__num-notes'>
-                  {countNotesForFolder(notes, folder.id)}
-                </span>
-                {folder.name}
-              </NavLink>
+              <Folder id={folder.id} notes={notes} name={folder.name}/>
             </li>
           )}
         </ul>
@@ -39,6 +34,15 @@ export default class NoteListNav extends React.Component {
             <br />
             Folder
           </CircleButton>
+          <button
+                className='Note__delete'
+                type='button'
+                onClick={this.handleClickDelete}
+              >
+                <FontAwesomeIcon icon='trash-alt' />
+                {' '}
+                remove
+          </button>
         </div>
       </div>
     )

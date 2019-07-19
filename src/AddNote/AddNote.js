@@ -31,7 +31,6 @@ export default class AddNote extends React.Component {
       this.setState({content}, () => {this.validateContent(content)});
     }
     updateFolder(folder) {
-      console.log(folder)
       this.setState({folder}, () => folder);
     }
     
@@ -41,9 +40,9 @@ export default class AddNote extends React.Component {
           name: this.state.name,
           content: this.state.content,
           modified: new Date(),
-          folderId: event.target[`folder-select`].value,
+          folder_id: event.target[`folder-select`].value,
         }
-        fetch(`${config.API_ENDPOINT}/notes/`, {
+        fetch(`${config.API_ENDPOINT}/notes`, {
             method: 'POST',
             body: JSON.stringify(note),
             headers: {
@@ -57,7 +56,7 @@ export default class AddNote extends React.Component {
           })
           .then(data => {
             this.context.addNote(data)
-            this.props.history.push(`/folder/${data.folderId}`)
+            this.props.history.push(`/folder/${data.folder_id}`)
           })
           .catch(error => {
             // getDerivedStateFromError({ error })

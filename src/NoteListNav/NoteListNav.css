@@ -40,6 +40,6 @@
 .NoteListNav__num-notes {
   color: #adadad;
   display: block;
-  float: right;
+  float: left;
   font-size: 10px;
 }

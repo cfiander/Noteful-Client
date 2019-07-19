@@ -2,7 +2,7 @@ import React from 'react'
 import ValidationError from '../ValidationError'
 import ApiContext from '../ApiContext'
 import config from '../config'
-// import HandleError from '../HandleError/HandleError'
+import PropTypes from 'prop-types';
 
 export default class AddFolder extends React.Component {
     constructor(props) {
@@ -12,22 +12,22 @@ export default class AddFolder extends React.Component {
             formValid: false,
             validationMessages: {
                 name: '',
-              },
-            err: false
+              }
         }
-
     }
 
     static contextType = ApiContext;
     static defaultProps ={
       onAddFolder: () => {},
     }
+
     updateName(name) {
         this.setState({name}, () => {this.validateName(name)});
       }
     
     handleSubmit(event) {
         event.preventDefault();
+        // throw new Error('error test'); 
         const name = {
             name: this.state.name
         }
@@ -48,6 +48,7 @@ export default class AddFolder extends React.Component {
             this.context.addFolder(data)
             // allow parent to perform extra behaviour
             this.props.onAddFolder(name)
+            this.props.history.push('/')
           })
           .catch(error => {
             console.error({ error })
@@ -79,29 +80,23 @@ export default class AddFolder extends React.Component {
     
       }
 
-      handleError = (e) => {
-        this.setState({
-          err: true
-        })
-      }
-
     render() {
-        if(this.state.err) {
-          throw new Error('Throwing from form Render')
-        } 
         return (
-          // <form className="add_folder" onSubmit={e => this.handleSubmit(e)}>
-          <form className="add_folder" onSubmit={e => this.handleError(e)}>
-          <h2>Register</h2>
-          <div className="hint">* required field</div>  
-          <div className="form-group">
-              <label htmlFor="name">Folder Name</label>
-              <input type="text" className="folder__control"
-              name="name" id="name" onChange={e => this.updateName(e.target.value)}/>
-              <button type="submit">Add folder</button>
-          </div>
-          <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name}/>  
-          </form>
-      )
+            <form className="add_folder" onSubmit={e => this.handleSubmit(e)}>
+            <h2>Register</h2>
+            <div className="hint">* required field</div>  
+            <div className="form-group">
+                <label htmlFor="name">Folder Name</label>
+                <input type="text" className="folder__control"
+                name="name" id="name" onChange={e => this.updateName(e.target.value)}/>
+                <button type="submit">Add folder</button>
+            </div>
+            <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name}/>  
+            </form>
+        )
     }
 }
+
+AddFolder.PropTypes = {
+    onAddFolder: PropTypes.func,
+  }

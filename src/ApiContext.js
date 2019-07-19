@@ -7,6 +7,7 @@ const ApiContext = React.createContext({
   addFolder: () => {},
   addNote: () => {},
   deleteNote: () => {},
+  deleteFolder: () => {},
 })
 
 export default ApiContext;
@@ -46,6 +47,12 @@ export class ApiProvider extends Component {
         });
     };
 
+    handleDeleteFolder = folderId => {
+        this.setState({
+            folders: this.state.folders.filter(folder => folder.id !== folderId)
+        })
+    }
+
     handleAddFolder = folder => {
         // throw new Error('Error');
         this.setState({
@@ -65,7 +72,8 @@ export class ApiProvider extends Component {
             folders: this.state.folders,
             deleteNote: this.handleDeleteNote,
             addFolder: this.handleAddFolder,
-            addNote: this.handleAddNote
+            addNote: this.handleAddNote,
+            deleteFolder: this.handleDeleteFolder
         };
         return (
                 <ApiContext.Provider value={value}>

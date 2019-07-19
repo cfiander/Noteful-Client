@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 class HandleError extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class HandleError extends React.Component {
 
   componentDidCatch(error, info) {
     // You can also log the error to an error reporting service
-    console.log(error);
   }
 
   render() {
